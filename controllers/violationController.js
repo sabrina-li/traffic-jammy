@@ -1,8 +1,11 @@
+const db = require("../models");
 // Defining methods for the Controller
 module.exports = {
   findAllViolationsForState: (req, res) => {
+    //TODO: add year
     db.Violation
-      .find(req.query,['Latitude', 'Longitude'])      
+      .find(req.query,['Latitude', 'Longitude'])  
+      .limit(10000)    //MAX 10k records
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -15,6 +18,7 @@ module.exports = {
     }
     db.Violation
       .findById(query)
+      .limit(10000) 
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
