@@ -31,12 +31,16 @@
   "homepage": "https://github.com/sabrina-li/traffic-jammy#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "classnames": "^2.2.6",
     "express": "^4.17.1",
+    "google-maps-react": "^2.0.2",
     "if-env": "^1.0.4",
-    "mongoose": "^5.6.2"
+    "mongoose": "^5.6.2",
+    "react-controllables": "^0.6.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
+    "dotenv": "^8.0.0",
     "nodemon": "^1.19.1"
   }
 }
