@@ -10,6 +10,9 @@ const GoogleMarker = (props)=>{
     id={props._id}
     position={props.position}
     draggable={true}
+    icon={{
+        url: "/cemetery-512.png",
+      }} 
 
     // onDragend={this.moveMarker.bind(this)}
     >
