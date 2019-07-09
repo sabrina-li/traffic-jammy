@@ -1,19 +1,22 @@
 const db = require("../models");
 // Defining methods for the Controller
 module.exports = {
+  //api/violation?State=GA
   findAllViolationsForState: (req, res) => {
     //TODO: add year
     db.Violation
-      .find(req.query,['Latitude', 'Longitude'])  
+      .find(req.query,['latitude', 'longitude'])  
       .limit(10000)    //MAX 10k records
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  //api/violation/geolocation
   findViolationsByLocation: (req, res) => {
+    console.log(req.query)
       const query = {
         $and: [
-            {Latitude: {$gt : req.query.minLat, $lt : req.query.maxLat}},
-            {Longitude: {$gt : req.query.minLon, $lt : req.query.maxLon}}
+            {latitude: {$gt : req.query.minLat, $lt : req.query.maxLat}},
+            {longitude: {$gt : req.query.minLon, $lt : req.query.maxLon}}
         ]
     }
     db.Violation

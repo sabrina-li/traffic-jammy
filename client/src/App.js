@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import SimpleMapPage from './googleMap'
+import SimpleMapPage from './GoogleMap.js'
 
 
 function App() {

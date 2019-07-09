@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import Map, {Marker, GoogleApiWrapper,InfoWindow} from 'google-maps-react';
+import React from 'react';
+import {Marker, InfoWindow} from 'google-maps-react';
 
 const GoogleMarker = (props)=>{
-    console.log(props.position)
+    // console.log(props.position)
     
     return <Marker
     {...props}
-    title="Location"
-    id={1}
-    // position={props.position}
+    // title="Location"
+    id={props._id}
+    position={props.position}
     draggable={true}
 
     // onDragend={this.moveMarker.bind(this)}

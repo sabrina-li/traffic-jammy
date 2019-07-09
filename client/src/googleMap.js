@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Map, { GoogleApiWrapper} from 'google-maps-react';
-import  {Marker,InfoWindow} from 'google-maps-react';
 import dotenv from 'dotenv'
-import GoogleMarker from './googleMarker.js';
+import GoogleMarkerList from './GoogleMarkerList.js';
 import './googleMap.css';
 
 dotenv.config();
@@ -25,22 +24,21 @@ const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 export class SimpleMapPage extends Component {
     static defaultProps= {
             center: {
-                lat: 33.753746,
-                lng: -84.386330
+                lat: 33.7490,
+                lng: -84.3880
             },
             position:{
-                lat: 33.753746,
-                lng: -85.386330
+                lat: 33.7490,
+                lng: -84.3880
             },
-            zoom: 11
+            zoom: 10
         };
         // state= {selectedPlace:{name:"atlanta"}};
 
 render() {
-    console.log(this.props.position)
     return (
-      <Map google={this.props.google} zoom={14} initialCenter={this.props.center}>
-        <GoogleMarker {...this.props}></GoogleMarker>
+      <Map google={this.props.google} initialCenter={this.props.center} zoom={this.props.zoom}>
+        <GoogleMarkerList {...this.props}></GoogleMarkerList>
       </Map>
     );
   }
