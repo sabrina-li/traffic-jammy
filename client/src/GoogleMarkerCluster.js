@@ -41,12 +41,14 @@ const MapWithAMarkerClusterer = compose(
     <MarkerClusterer
       onClick={props.onMarkerClustererClick}
       averageCenter
-      enableRetinaIcons
+    //   enableRetinaIcons={true}
+    //   defaultEnableRetinaIcons
       gridSize={40}
     >
       {props.markers.map(marker => {
           console.log(marker);
           return <Marker
+          icon={"/cemetery-512.png"}
           key={marker._id}
           position={{ lat: marker.latitude, lng: marker.longitude }}
         />
