@@ -13,7 +13,7 @@ class GoogleMarkerList extends React.Component{
     }
 
     render(){
-        console.log(this.state)
+        console.log(this.props.google.maps.LatLng())
         let list = null;
         if(this.state.data){
             list = this.state.data.map(loc=>{
