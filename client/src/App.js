@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-
-import DirectionsForm from './DirectionsForm.js';
-// import SimpleMapPage from './GoogleMap.js'
+import dotenv from 'dotenv'
+// import DirectionsForm from './DirectionsForm.js';
 import DemoApp from './GoogleMarkerCluster.js'
-// import MyMapComponent from './GoogleMap.js'
+
+dotenv.config();
 
 
-
-function App() {
+function App() {  
   return (
     <div className="App" style={{ height: '100vh', width: '100%' }}>
       {/* <SimpleMapPage></SimpleMapPage> */}
@@ -18,9 +17,8 @@ function App() {
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}/> */}
-        <DirectionsForm />
+        {/* <DirectionsForm /> */}
         <DemoApp />
-        
     </div>
   );
 }
