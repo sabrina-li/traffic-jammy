@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
+
+import DirectionsForm from './DirectionsForm.js';
 // import SimpleMapPage from './GoogleMap.js'
 import DemoApp from './GoogleMarkerCluster.js'
 // import MyMapComponent from './GoogleMap.js'
+
 
 
 function App() {
@@ -15,7 +18,9 @@ function App() {
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}/> */}
+        <DirectionsForm />
         <DemoApp />
+        
     </div>
   );
 }

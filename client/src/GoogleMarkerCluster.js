@@ -4,12 +4,13 @@ import dotenv from 'dotenv'
 import './googleMap.css';
 import API from "./utils/API";
 const fetch = require("isomorphic-fetch");
-const { compose, withProps, withHandlers } = require("recompose");
+const { compose, withProps, withHandlers, lifecycle } = require("recompose");
 const {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
+  DirectionsRenderer,
 } = require("react-google-maps");
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
@@ -32,7 +33,27 @@ const MapWithAMarkerClusterer = compose(
     },
   }),
   withScriptjs,
-  withGoogleMap
+  withGoogleMap,
+  lifecycle({
+    componentDidMount() {
+      const DirectionsService = new window.google.maps.DirectionsService();
+
+      DirectionsService.route({
+        origin: new window.google.maps.LatLng(33.7490, -84.3880),
+        destination: new window.google.maps.LatLng(34.9304, -84.3733),
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      }, (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          console.log(result);
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      });
+    }
+  })
 )(props =>
   <GoogleMap
     defaultZoom={9}
@@ -46,7 +67,6 @@ const MapWithAMarkerClusterer = compose(
       gridSize={40}
     >
       {props.markers.map(marker => {
-          console.log(marker);
           return <Marker
           icon={"/cemetery-512.png"}
           key={marker._id}
@@ -54,6 +74,7 @@ const MapWithAMarkerClusterer = compose(
         />
       })}
     </MarkerClusterer>
+    {props.directions && <DirectionsRenderer directions={props.directions} />}
   </GoogleMap>
 );
 
@@ -64,7 +85,6 @@ class DemoApp extends React.PureComponent {
   
   componentDidMount() {
     API.getAllViolations().then(response=>{
-        console.log(response.data);
         this.setState({markers:response.data})
     })
   }
