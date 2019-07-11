@@ -1,8 +1,8 @@
 // import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 import React from 'react';
+import DirectionsForm from './DirectionsForm.js';
 import './googleMap.css';
 import API from "./utils/API";
-const fetch = require("isomorphic-fetch");
 const { compose, withProps, withHandlers, lifecycle } = require("recompose");
 const {
   withScriptjs,
@@ -13,7 +13,9 @@ const {
 } = require("react-google-maps");
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
+
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
 
 const MapWithAMarkerClusterer = compose(
   withProps({
@@ -75,37 +77,11 @@ const MapWithAMarkerClusterer = compose(
   </GoogleMap>
 );
 
-
-
-// const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-const loadGoogleMaps = (callback) => {
-    const existingScript = document.getElementById('googleMaps');
-
-    if (!existingScript) {
-        const script = document.createElement('script');
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + gKey + '&libraries=places';
-        script.id = 'googleMaps';
-        document.body.appendChild(script);
-
-        script.onload = () => {
-            if (callback) callback();
-        };
-    }
-
-    if (existingScript && callback) callback();
-};
-
-
 class DemoApp extends React.PureComponent {
   componentWillMount() {
     this.setState({ 
-      markers: [],
-      googleMapsReady:false })
-    loadGoogleMaps(() => {
-      // Work to do after the library loads.
-      this.setState({ googleMapsReady: true });
-  });
-  console.log(document);
+      markers: []
+    })
   }
   
   componentDidMount() {
@@ -115,10 +91,10 @@ class DemoApp extends React.PureComponent {
   }
   
   render() {
-    return (
-      <div className="MapsComponent">
-      {this.state.googleMapsReady ? <MapWithAMarkerClusterer markers={this.state.markers} /> : ''}
-</div>
+    return (<>
+        <MapWithAMarkerClusterer markers={this.state.markers} /> 
+        <DirectionsForm />
+      </>
     )
   }
 }

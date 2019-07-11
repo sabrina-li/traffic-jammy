@@ -7,11 +7,11 @@ import DemoApp from './GoogleMarkerCluster.js'
 dotenv.config();
 
 
-function App() {  
+function App() {
   return (
     <div className="App" style={{ height: '100vh', width: '100%' }}>
-        {/* <DirectionsForm /> */}
-        <DemoApp />
+      <DemoApp />
+      {/* <DirectionsForm /> */}
     </div>
   );
 }
