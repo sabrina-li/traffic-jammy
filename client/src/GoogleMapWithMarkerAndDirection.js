@@ -35,22 +35,23 @@ const MapWithAMarkerClusterer = compose(
   withGoogleMap,
   lifecycle({
     componentDidMount() {
-      if(this.props.haveDir){
-        const DirectionsService = new window.google.maps.DirectionsService();
-        DirectionsService.route({
-          origin: new window.google.maps.LatLng(this.props.origin.lat, this.props.origin.lng),
-          destination: new window.google.maps.LatLng(this.props.destination.lat, this.props.destination.lng),
-          travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
-        }, (result, status) => {
-          if (status === window.google.maps.DirectionsStatus.OK) {
-            this.setState({
-              directions: result,
-            });
-          } else {
-            console.error(`error fetching directions ${result}`);
-          }
-        });
-      }
+      // console.log("propsssss:",this.props)
+      // if(this.props.haveDir){
+      //   const DirectionsService = new window.google.maps.DirectionsService();
+      //   DirectionsService.route({
+      //     origin: new window.google.maps.LatLng(this.props.origin.lat, this.props.origin.lng),
+      //     destination: new window.google.maps.LatLng(this.props.destination.lat, this.props.destination.lng),
+      //     travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
+      //   }, (result, status) => {
+      //     if (status === window.google.maps.DirectionsStatus.OK) {
+      //       this.setState({
+      //         directions: result,
+      //       });
+      //     } else {
+      //       console.error(`error fetching directions ${result}`);
+      //     }
+      //   });
+      // }
       
     }
   })
@@ -79,6 +80,47 @@ const MapWithAMarkerClusterer = compose(
 );
 
 class GoogleMapWithMarkerAndDirection extends React.PureComponent {
+  state={
+    origin:{
+      lat:33.7490,
+      lng:-84.3880
+    },
+    destination:{
+      lat:33.9490,
+      lng:-84.0880
+    }
+  }
+  
+  setLatLng = (name,latLng)=>{
+    console.log("latlng",name,latLng)
+    this.setState(
+      {[name]:latLng}
+    )
+  }
+
+  handleSubmit = (event)=>{
+    event.preventDefault();
+    console.log(event);
+    //TODO: check both origin and destination are there
+  
+      const DirectionsService = new window.google.maps.DirectionsService();
+      DirectionsService.route({
+        origin: new window.google.maps.LatLng(this.state.origin.lat, this.state.origin.lng),
+        destination: new window.google.maps.LatLng(this.state.destination.lat, this.state.destination.lng),
+        travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
+      }, (result, status) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      });
+    
+  }
+
+
   componentWillMount() {
     this.setState({ 
       markers: []
@@ -96,11 +138,14 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
   
   render() {
     return (<>
-        <label>From</label>
-        <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady}></PlacesAutocompleteInput>
-        <label>To</label>
-        <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady}></PlacesAutocompleteInput>
-        <MapWithAMarkerClusterer markers={this.state.markers} {...this.props}/> 
+        <form onSubmit={this.handleSubmit}>
+          <label>From</label>
+          <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
+          <label>To</label>
+          <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
+          <input type="submit"></input>
+        </form>
+        <MapWithAMarkerClusterer {...this.state}/> 
       </>
     )
   }

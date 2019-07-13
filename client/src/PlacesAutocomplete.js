@@ -31,12 +31,11 @@ handleChange = address => {
     this.setState({ address });
 };
 
-
 handleSelect = address => {
     this.setState({ address });
     geocodeByAddress(address)
         .then(results => getLatLng(results[0]))
-        .then(latLng => console.log('Success', latLng))
+        .then(latLng => this.props.setLatLng(this.props.name,latLng))
         .catch(error => console.error('Error', error));
 };
 
