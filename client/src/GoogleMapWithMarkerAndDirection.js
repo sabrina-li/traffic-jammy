@@ -1,6 +1,7 @@
 // import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 import React from 'react';
 import PlacesAutocompleteInput from './PlacesAutocomplete.js';
+import HeatBar from './HeatBar.js'
 import './googleMap.css';
 import {API,Polyline} from "./utils";
 import { compose, withProps, withHandlers, lifecycle } from "recompose";
@@ -150,6 +151,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
         <input type="submit"></input>
       </form>
       <MapWithAMarkerClusterer {...this.state} />
+      <HeatBar></HeatBar>
     </>
     )
   }
