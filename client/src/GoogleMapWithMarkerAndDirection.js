@@ -112,7 +112,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
           directions: result,
         });
         Polyline.predict(Polyline.decode(result.routes[0].overview_polyline),this.state.markers)
-        .then(console.log);
+                .then(console.log);
         //TODO: count the points near all these locations
       } else {
         console.error(`error fetching directions ${result}`);
@@ -125,11 +125,13 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
   componentWillMount() {
     this.setState({
       markers: [],
-      googleMapsReady: false
+      googleMapsReady: false//Make sure the map is not ready before mounting, for auto complete
     })
   }
 
   componentDidMount() {
+    //TODO: load only markers in the shown map area, have to handle on zoom
+    //load all traffic violations form DB
     API.getAllViolations().then(response => {
       this.setState({
         markers: response.data,
