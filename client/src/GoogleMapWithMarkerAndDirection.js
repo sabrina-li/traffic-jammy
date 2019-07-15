@@ -2,7 +2,7 @@
 import React from 'react';
 import PlacesAutocompleteInput from './PlacesAutocomplete.js';
 import HeatBar from './HeatBar.js'
-import './googleMap.css';
+import './googleMap.scss';
 import {API,Polyline} from "./utils";
 import { compose, withProps, withHandlers, lifecycle } from "recompose";
 import {
@@ -21,9 +21,9 @@ const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 const MapWithAMarkerClusterer = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=" + gKey + "&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
+    loadingElement: <div id="map" />,
+    containerElement: <div id="map" />,
+    mapElement: <div id="map" />,
   }),
   withHandlers({
     onMarkerClustererClick: () => (markerClusterer) => {
