@@ -1,10 +1,8 @@
 // import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 import React from 'react';
-import PlacesAutocompleteInput from './PlacesAutocomplete.js';
-import HeatBar from './HeatBar.js'
 import './googleMap.scss';
 import 'bulma/css/bulma.css'
-import { API, Polyline } from "./utils";
+
 import { compose, withProps, withHandlers, lifecycle } from "recompose";
 import {
   withScriptjs,
@@ -14,6 +12,10 @@ import {
   DirectionsRenderer,
 } from "react-google-maps";
 import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
+
+import { API, Polyline } from "../utils";
+import PlacesAutocompleteInput from '../components/PlacesAutocomplete.js';
+import HeatBar from '../components/HeatBar.js'
 
 
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -30,33 +32,11 @@ const MapWithAMarkerClusterer = compose(
     onMarkerClustererClick: () => (markerClusterer) => {
       const clickedMarkers = markerClusterer.getMarkers()
       console.log(`Current clicked markers length: ${clickedMarkers.length}`)
-      console.log(clickedMarkers)
+      console.log(clickedMarkers[0].position.lat())
     },
   }),
   withScriptjs,
   withGoogleMap,
-  lifecycle({
-    componentDidMount() {
-      // console.log("propsssss:",this.props)
-      // if(this.props.haveDir){
-      //   const DirectionsService = new window.google.maps.DirectionsService();
-      //   DirectionsService.route({
-      //     origin: new window.google.maps.LatLng(this.props.origin.lat, this.props.origin.lng),
-      //     destination: new window.google.maps.LatLng(this.props.destination.lat, this.props.destination.lng),
-      //     travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
-      //   }, (result, status) => {
-      //     if (status === window.google.maps.DirectionsStatus.OK) {
-      //       this.setState({
-      //         directions: result,
-      //       });
-      //     } else {
-      //       console.error(`error fetching directions ${result}`);
-      //     }
-      //   });
-      // }
-
-    }
-  })
 )(props =>
   <GoogleMap
     defaultZoom={9}
@@ -119,9 +99,8 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
             })
           });
         this.setState({
-          directions: result,
+          directions: result
         });
-
         //TODO: count the points near all these locations
       } else {
         console.error(`error fetching directions ${result}`);
@@ -143,14 +122,19 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
     //load all traffic violations form DB
     API.getAllViolations().then(response => {
       this.setState({
-        markers: response.data,
-        googleMapsReady: true
+        markers: response.data
       })
     })
+    //TODO: this is a temp work around for the goole api load issue, will work on permanent solution
+    setTimeout(() => {
+      this.setState({
+        googleMapsReady: true
+      })
+    }, 1000);
   }
 
   render() {
-    return (<>
+    return (<div className="container">
       <form onSubmit={this.handleSubmit} className="columns">
         <div className="column">
           <span>From</span>
@@ -169,7 +153,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
         <MapWithAMarkerClusterer {...this.state}/>
         <HeatBar risk={this.state.risk}></HeatBar>
       </div>
-    </>
+    </div >
     )
   }
 }

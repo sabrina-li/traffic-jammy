@@ -1,16 +1,24 @@
 import React from 'react';
 import dotenv from 'dotenv'
-// import DirectionsForm from './DirectionsForm.js';
-import GoogleMapWithMarkerAndDirection from './GoogleMapWithMarkerAndDirection.js'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import GoogleMapWithMarkerAndDirection from './pages/GoogleMapWithMarkerAndDirection.js'
+import addData from './pages/addData.js'
 
 dotenv.config();
 
 
 function App() {
   return (
-    <div className="App" style={{ height: '100vh', width: '100%' }}>
-      <GoogleMapWithMarkerAndDirection className="container"></GoogleMapWithMarkerAndDirection>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={GoogleMapWithMarkerAndDirection} />
+          <Route exact path="/add" component={addData} />
+          {/* <Route exact path="/books/:id" component={Detail} /> */}
+          {/* <Route component={NoMatch} /> */}
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -14,47 +14,49 @@ class PlacesAutocompleteInput extends Component {
             address: ''
         };
     }
-//original with from and to
-// handleChange = (event) => {
-//     const key = event.target.getAttribute("name");
-//     this.setState({ [key]: event.target.value });
-//     // geocodeByAddress(address)
-//     //     .then(results => getLatLng(results[0]))
-//     //     .then(latLng => console.log('Success', latLng))
-//     //     .catch(error => console.error('Error', error));
+    //original with from and to
+    // handleChange = (event) => {
+    //     const key = event.target.getAttribute("name");
+    //     this.setState({ [key]: event.target.value });
+    //     // geocodeByAddress(address)
+    //     //     .then(results => getLatLng(results[0]))
+    //     //     .then(latLng => console.log('Success', latLng))
+    //     //     .catch(error => console.error('Error', error));
 
-// }
+    // }
 
 
-//for auto complete
-handleChange = address => {
-    this.setState({ address });
-};
+    //for auto complete
+    handleChange = address => {
+        this.setState({ address });
+    };
 
-handleSelect = address => {
-    this.setState({ address });
-    geocodeByAddress(address)
-        .then(results => getLatLng(results[0]))
-        .then(latLng => this.props.setLatLng(this.props.name,latLng))
-        .catch(error => console.error('Error', error));
-};
+    handleSelect = address => {
+        this.setState({ address });
+        geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => this.props.setLatLng(this.props.name, latLng))
+            .catch(error => console.error('Error', error));
+    };
 
-handleSubmit = (event) => {
-    event.preventDefault();
-}
-
-render() {
-    if (!this.props.googleMapsReady){
-        console.log("not ready")
-        return null;
+    handleSubmit = (event) => {
+        event.preventDefault();
     }
-    console.log(" ready")
+
+    render() {
+        if (!this.props.googleMapsReady) {
+            console.log("not ready")
+            return null;
+        }
+
+
+        
         return <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
             onSelect={this.handleSelect} >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                <div>
+                <span>
                     <input
                         {...getInputProps({
                             placeholder: 'Search Places ...',
@@ -83,7 +85,7 @@ render() {
                             );
                         })}
                     </div>
-                </div>
+                </span>
             )}
         </PlacesAutocomplete>
     }

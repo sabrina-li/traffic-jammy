@@ -14,14 +14,14 @@ export default {
             dataArr.forEach(location => {
                 inputArr.forEach(polylineLocation=>{
                     //TODO: not hard code this value here
-                    if(Math.abs(location.latitude - polylineLocation[0]) <0.002 && Math.abs(location.longitude - polylineLocation[1]) <0.002){
+                    if(Math.abs(location.latitude - polylineLocation[0]) <0.03 && Math.abs(location.longitude - polylineLocation[1]) <0.03){
                         accidents.add(location);
                     }
                 })
             });
             // console.log("end",Date.now());
 
-            res(accidents.size*1.6);//normalize the long distance with more/less polyline points 
+            res(accidents.size*0.7);//normalize the long distance with more/less polyline points 
         })
     }
 }
