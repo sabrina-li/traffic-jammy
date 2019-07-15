@@ -90,7 +90,8 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
     destination: {
       lat: 33.9490,
       lng: -84.0880
-    }
+    },
+    risk:0
   }
 
   setLatLng = (name, latLng) => {
@@ -110,11 +111,17 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
       travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
     }, (result, status) => {
       if (status === window.google.maps.DirectionsStatus.OK) {
+        Polyline.predict(Polyline.decode(result.routes[0].overview_polyline),this.state.markers)
+                .then(risk=>{
+                  console.log("risk",risk)
+                  this.setState({
+                    risk:risk
+                  })
+                });
         this.setState({
           directions: result,
         });
-        Polyline.predict(Polyline.decode(result.routes[0].overview_polyline),this.state.markers)
-                .then(console.log);
+        
         //TODO: count the points near all these locations
       } else {
         console.error(`error fetching directions ${result}`);
@@ -144,7 +151,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 
   render() {
     return (<>
-      <form onSubmit={this.handleSubmit} class="columns">
+      <form onSubmit={this.handleSubmit} className="columns">
         <div className="column">
         <label>From</label>
         <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
@@ -153,11 +160,14 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
         <label>To</label>
         <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
         </div>
-        <input type="submit"></input>
+        <div className="column">
+          <input type="submit" ></input>
+        </div>
+        
       </form>
       <div className="columns">
       <MapWithAMarkerClusterer {...this.state} />
-      <HeatBar></HeatBar>
+      <HeatBar risk={this.state.risk}></HeatBar>
       </div>
     </>
     )

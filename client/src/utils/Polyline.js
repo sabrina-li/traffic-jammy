@@ -9,19 +9,19 @@ export default {
     predict:(inputArr,dataArr)=>{
         // console.log("start",Date.now());
         return new Promise((res,rej)=>{
-            let cnt = 0;
+            let accidents = new Set();
             //TODO: improve async for promise/resolution 
             dataArr.forEach(location => {
                 inputArr.forEach(polylineLocation=>{
                     //TODO: not hard code this value here
                     if(Math.abs(location.latitude - polylineLocation[0]) <0.002 && Math.abs(location.longitude - polylineLocation[1]) <0.002){
-                        cnt++;
+                        accidents.add(location);
                     }
                 })
             });
             // console.log("end",Date.now());
 
-            res(cnt*100/inputArr.length);//normalize the long distance with more/less polyline points 
+            res(accidents.size*1.6);//normalize the long distance with more/less polyline points 
         })
     }
 }
