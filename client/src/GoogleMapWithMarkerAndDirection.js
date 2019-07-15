@@ -92,7 +92,6 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
   }
 
   setLatLng = (name, latLng) => {
-    console.log("latlng", name, latLng)
     this.setState(
       { [name]: latLng }
     )
@@ -112,9 +111,8 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
         this.setState({
           directions: result,
         });
-        console.log(result);
-        console.log(result.routes[0].overview_polyline)
-        console.log(Polyline.decode(result.routes[0].overview_polyline))
+        Polyline.predict(Polyline.decode(result.routes[0].overview_polyline),this.state.markers)
+        .then(console.log);
         //TODO: count the points near all these locations
       } else {
         console.error(`error fetching directions ${result}`);
@@ -126,7 +124,8 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 
   componentWillMount() {
     this.setState({
-      markers: []
+      markers: [],
+      googleMapsReady: false
     })
   }
 

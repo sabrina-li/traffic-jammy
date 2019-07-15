@@ -45,8 +45,10 @@ handleSubmit = (event) => {
 
 render() {
     if (!this.props.googleMapsReady){
+        console.log("not ready")
         return null;
     }
+    console.log(" ready")
         return <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
