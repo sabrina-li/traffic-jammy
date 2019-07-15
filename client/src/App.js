@@ -9,7 +9,7 @@ dotenv.config();
 function App() {
   return (
     <div className="App" style={{ height: '100vh', width: '100%' }}>
-      <GoogleMapWithMarkerAndDirection></GoogleMapWithMarkerAndDirection>
+      <GoogleMapWithMarkerAndDirection className="container"></GoogleMapWithMarkerAndDirection>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import PlacesAutocompleteInput from './PlacesAutocomplete.js';
 import HeatBar from './HeatBar.js'
 import './googleMap.scss';
+import 'bulma/css/bulma.css'
 import {API,Polyline} from "./utils";
 import { compose, withProps, withHandlers, lifecycle } from "recompose";
 import {
@@ -143,15 +144,21 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 
   render() {
     return (<>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} class="columns">
+        <div className="column">
         <label>From</label>
         <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
+        </div>
+        <div className="column">
         <label>To</label>
         <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
+        </div>
         <input type="submit"></input>
       </form>
+      <div className="columns">
       <MapWithAMarkerClusterer {...this.state} />
       <HeatBar></HeatBar>
+      </div>
     </>
     )
   }
