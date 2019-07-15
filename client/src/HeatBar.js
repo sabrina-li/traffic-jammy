@@ -4,7 +4,10 @@ import './HeatBar.scss';
 
 const HeatBar = (props)=>{
     return <>
-    <div id="heat-bar">Heat bar</div>
+    <div id="heat-bar">Heat bar
+    <div id="clip"></div>
+    </div>
+    
         </>
 }
 

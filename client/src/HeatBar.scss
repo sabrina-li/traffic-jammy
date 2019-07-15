@@ -1,6 +1,18 @@
 #heat-bar{
     background-image: url('/heatBar.png');
     background-size: cover;
+    background-position: center bottom; 
     width: 10vw;
     height: 80vh;
+    position: relative;
+}
+
+#clip{
+    clip-path: inset(0 0 10% 0);//TODO:clip based on the danger scale
+    background: white;
+    position: absolute;
+    top: 2px;
+    left: 1%;
+    height: 98%;
+    width: 98%;
 }
