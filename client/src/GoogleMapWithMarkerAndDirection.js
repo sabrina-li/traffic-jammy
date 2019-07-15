@@ -4,7 +4,7 @@ import PlacesAutocompleteInput from './PlacesAutocomplete.js';
 import HeatBar from './HeatBar.js'
 import './googleMap.scss';
 import 'bulma/css/bulma.css'
-import {API,Polyline} from "./utils";
+import { API, Polyline } from "./utils";
 import { compose, withProps, withHandlers, lifecycle } from "recompose";
 import {
   withScriptjs,
@@ -91,7 +91,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
       lat: 33.9490,
       lng: -84.0880
     },
-    risk:0
+    risk: 0
   }
 
   setLatLng = (name, latLng) => {
@@ -111,17 +111,17 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
       travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
     }, (result, status) => {
       if (status === window.google.maps.DirectionsStatus.OK) {
-        Polyline.predict(Polyline.decode(result.routes[0].overview_polyline),this.state.markers)
-                .then(risk=>{
-                  console.log("risk",risk)
-                  this.setState({
-                    risk:risk
-                  })
-                });
+        Polyline.predict(Polyline.decode(result.routes[0].overview_polyline), this.state.markers)
+          .then(risk => {
+            console.log("risk", risk)
+            this.setState({
+              risk: risk
+            })
+          });
         this.setState({
           directions: result,
         });
-        
+
         //TODO: count the points near all these locations
       } else {
         console.error(`error fetching directions ${result}`);
@@ -153,21 +153,21 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
     return (<>
       <form onSubmit={this.handleSubmit} className="columns">
         <div className="column">
-        <label>From</label>
-        <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
+          <span>From</span>
+          <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
         </div>
         <div className="column">
-        <label>To</label>
-        <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
+          <label>To</label>
+          <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
         </div>
         <div className="column">
           <input type="submit" ></input>
         </div>
-        
+
       </form>
       <div className="columns">
-      <MapWithAMarkerClusterer {...this.state} />
-      <HeatBar risk={this.state.risk}></HeatBar>
+        <MapWithAMarkerClusterer {...this.state}/>
+        <HeatBar risk={this.state.risk}></HeatBar>
       </div>
     </>
     )

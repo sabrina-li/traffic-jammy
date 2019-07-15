@@ -1,18 +1,28 @@
+#bar-wrapper{
+    height: 80vh;
+    margin-left: 10px;
+}
+#heat-title{
+    position: relative;
+    top: 0;
+    height: 10%;
+    text-align: center;
+}
 #heat-bar{
     background-image: url('/heatBar.png');
     background-size: cover;
     background-position: center bottom; 
     width: 10vw;
-    height: 80vh;
+    height: 90%;
     position: relative;
-    left: 3vw;
+    left: 1vw;
 }
 
 #clip{
-    clip-path: inset(0 0 10% 0);//TODO:clip based on the danger scale
+    // clip-path: inset(0 0 10% 0);//TODO:clip based on the danger scale
     background: white;
     position: absolute;
-    top: 2px;
+    top: 1px;
     left: 1%;
     height: 98%;
     width: 98%;
