@@ -1,4 +1,7 @@
 $color-gray: rgba(255, 255, 255, 0.77);
+@mixin padding {
+    padding: 10vh 0 10vw 5vw;
+}
 
 #background{
     background-image: url('/earth.jpg');
@@ -10,8 +13,26 @@ $color-gray: rgba(255, 255, 255, 0.77);
     width: 100vw;
 }
 .fixed-title{
-    display: inline;
+    @include padding();
+    display: inline-block;
     color: $color-gray;
-    // text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
+}
+
+main{
+    @include padding();
+    height: 150px;
+    overflow: hidden;
+    padding-top: 0;
+}
+
+.facts{
+    color: $color-gray;
+    padding: 70px;
+}
+
+@keyframes roll{
+    0%{
+
+    }
 }
