@@ -3,6 +3,8 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-places-autocomplete';
+import TextField from '@material-ui/core/TextField';
+import './autocomplete.scss'
 
 
 class PlacesAutocompleteInput extends Component {
@@ -11,24 +13,14 @@ class PlacesAutocompleteInput extends Component {
         this.state = {
             from: '',
             to: '',
-            address: ''
+            address: '',
+            display:"none"
         };
     }
-    //original with from and to
-    // handleChange = (event) => {
-    //     const key = event.target.getAttribute("name");
-    //     this.setState({ [key]: event.target.value });
-    //     // geocodeByAddress(address)
-    //     //     .then(results => getLatLng(results[0]))
-    //     //     .then(latLng => console.log('Success', latLng))
-    //     //     .catch(error => console.error('Error', error));
-
-    // }
-
 
     //for auto complete
     handleChange = address => {
-        this.setState({ address });
+        this.setState({ address, display:"block"});
     };
 
     handleSelect = address => {
@@ -57,13 +49,18 @@ class PlacesAutocompleteInput extends Component {
             onSelect={this.handleSelect} >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <span>
-                    <input
+                    <TextField
+                    style={{ width: "80%" }}
+                    defaultValue="foo"
+                    label={this.props.name}
+                    margin="normal"
+                    variant="outlined"
                         {...getInputProps({
                             placeholder: 'Search Places ...',
                             className: 'location-search-input',
                         })}
                     />
-                    <div className="autocomplete-dropdown-container">
+                    <div className="autocomplete-dropdown-container" style={{display:this.state.display}}>
                         {loading && <div>Loading...</div>}
                         {suggestions.map(suggestion => {
                             const className = suggestion.active

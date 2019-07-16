@@ -2,5 +2,13 @@
 /* Set the size of the div element that contains the map */
 #map {
 height: 80vh;  /* The height is 400 pixels */
-width: 80vw;  /* The width is the width of the web page */
+width: 100%;  /* The width is the width of the web page */
+}
+
+#input-form{
+    padding-top: 10px;
+}
+
+input{
+    width: 100;
 }
