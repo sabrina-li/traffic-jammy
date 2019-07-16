@@ -1,6 +1,6 @@
 $color-gray: rgba(255, 255, 255, 0.77);
 @mixin padding {
-    padding: 10vh 0 10vw 5vw;
+    padding: 7vh 0 10vw 5vw;
 }
 
 #background{
@@ -21,18 +21,77 @@ $color-gray: rgba(255, 255, 255, 0.77);
 
 main{
     @include padding();
-    height: 150px;
+    height: 100px;
     overflow: hidden;
     padding-top: 0;
 }
 
 .facts{
     color: $color-gray;
-    padding: 70px;
+    padding: 60px 50px;
+    animation: roll 20s ease-in-out infinite;
 }
+.red{
+    color:red;
+}
+
+.footer{
+    position: fixed;
+    bottom: 5vh;
+    width: 100%;
+    text-align: center;
+    color:$color-gray;
+    .page-text{
+        display: none;
+    }
+    .fas{
+        transform: scale(3.0,1) translateY(10%); 
+    }
+}
+.footer:hover{
+    .fas{
+        animation: hovering 1s ease-in-out infinite;
+    }
+    .page-text{
+        display: block;
+    }
+}
+
 
 @keyframes roll{
     0%{
+        transform:translateY(100%)
+    }
+    15%{
+        transform:translateY(0)
+    }
+    30%{
+        transform:translateY(-100%)
+    }
+    45%{
+        transform:translateY(-200%)
+    }
+    60%{
+        transform:translateY(-300%)
+    }
+    75%{
+        transform:translateY(-400%)
+    }
+    100%{
+        transform:translateY(-500%)
+    }
+}
 
+
+
+@keyframes hovering{
+    0%{
+        transform: scale(3.0,1) translateY(10%); 
+    }
+    50%{
+        transform: scale(3.5,1) translateY(0%); 
+    }
+    100%{
+        transform: scale(3.0,1) translateY(10%); 
     }
 }
