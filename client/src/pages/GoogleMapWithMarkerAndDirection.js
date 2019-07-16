@@ -136,35 +136,39 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	}
 
 	render() {
-		return (<Container maxWidth="lg" >
-			<form noValidate autoComplete="off" onSubmit={this.handleSubmit} >
+		return (<>
+			<form noValidate autoComplete="off" onSubmit={this.handleSubmit}  className="search-bar">
+				<Container maxWidth="lg">
+					<Grid
+						container
+						direction="row"
+						justify="left"
+						alignItems="center"
+						id="input-form"
+					>
+					<Grid item xs={6} sm={5}>
+						From: <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
+					</Grid>
+					<Grid item xs={6} sm={5}>
+						To: <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
+					</Grid>
+						<Button variant="outlined" color="primary" onClick={this.handleSubmit}>Submit</Button>
+					</Grid>
+				</Container>
+			</form>
+
+			<Container maxWidth="lg">
 				<Grid
 					container
 					direction="row"
-					justify="left"
+					justify="center"
 					alignItems="center"
-					id="input-form"
 				>
-					<Grid item xs={6} sm={4}>
-						From: <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
-					</Grid>
-					<Grid item xs={6} sm={4}>
-						To: <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
-					</Grid>
-					<Button variant="outlined" color="primary" onClick={this.handleSubmit}>Submit</Button>
+					<Grid item xs={9}><MapWithAMarkerClusterer {...this.state} /></Grid>
+					<Grid item xs={3}><HeatBar risk={this.state.risk}></HeatBar></Grid>
 				</Grid>
-			</form>
-
-			<Grid
-				container
-				direction="row"
-				justify="center"
-				alignItems="center"
-			>
-				<Grid item xs={9}><MapWithAMarkerClusterer {...this.state} /></Grid>
-				<Grid item xs={3}><HeatBar risk={this.state.risk}></HeatBar></Grid>
-			</Grid>
-		</Container >
+			</Container>
+		</>
 		)
 	}
 }

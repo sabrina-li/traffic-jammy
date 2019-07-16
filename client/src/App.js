@@ -12,7 +12,7 @@ dotenv.config();
 function App() {
   return (
     <Router>
-      <div>
+      <div  className="background">
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route exact path="/map" component={GoogleMapWithMarkerAndDirection} />

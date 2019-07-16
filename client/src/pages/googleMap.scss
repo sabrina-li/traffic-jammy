@@ -1,4 +1,5 @@
-
+$color-gray: rgba(255, 255, 255, 0.9);
+$color-red: rgba(196, 44, 44, 0.77);
 /* Set the size of the div element that contains the map */
 #map {
 height: 80vh;  /* The height is 400 pixels */
@@ -11,4 +12,9 @@ width: 100%;  /* The width is the width of the web page */
 
 input{
     width: 100;
+}
+
+.search-bar{
+    width: 100vw;
+    background:$color-gray;
 }
