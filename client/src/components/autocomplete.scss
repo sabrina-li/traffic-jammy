@@ -1,8 +1,10 @@
+$color-gray: rgba(0, 0, 0, 0.23);
+
 .autocomplete-dropdown-container{
     position: absolute;
     z-index: 10;
     padding: 5px;
-    border: rgba(0, 0, 0, 0.23) 1px solid;
+    border: $color-gray 1px solid;
     border-radius: 4px;
     background-color: white;
 }

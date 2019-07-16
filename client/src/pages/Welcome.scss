@@ -1,0 +1,17 @@
+$color-gray: rgba(255, 255, 255, 0.77);
+
+#background{
+    background-image: url('/earth.jpg');
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+.fixed-title{
+    display: inline;
+    color: $color-gray;
+    // text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+}
