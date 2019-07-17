@@ -97,9 +97,16 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 					.then(risk => {
 						console.log("risk", risk)
 						this.setState({
-							risk: risk
+							risk: risk,
+							animate:true//used for animate the risk bar rise
 						})
 					});
+				//TODO: handle removing and re-adding the animation class more gracefully
+				setTimeout(() => {
+					this.setState({
+						animate:false
+					})
+				}, 1500);
 				this.setState({
 					directions: result
 				});
@@ -157,15 +164,16 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 				</Container>
 			</form>
 
-			<Container maxWidth="lg">
+			<Container maxWidth="lg" className="map-container">
 				<Grid
 					container
 					direction="row"
 					justify="center"
 					alignItems="center"
 				>
-					<Grid item xs={9}><MapWithAMarkerClusterer {...this.state} /></Grid>
-					<Grid item xs={3}><HeatBar risk={this.state.risk}></HeatBar></Grid>
+					<Grid item sm={1}></Grid>
+					<Grid item sm={8}><MapWithAMarkerClusterer {...this.state} /></Grid>
+					<Grid item sm={2}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
 				</Grid>
 			</Container>
 		</>

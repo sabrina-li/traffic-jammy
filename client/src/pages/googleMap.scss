@@ -1,6 +1,13 @@
 $color-gray: rgba(255, 255, 255, 0.9);
 $color-red: rgba(196, 44, 44, 0.77);
+$color-black: rgba(3, 3, 3, 0.5);
 /* Set the size of the div element that contains the map */
+
+.map-container{
+    height: 100%;
+    background: $color-black;
+    padding-top:15px;
+}
 #map {
 height: 80vh;  /* The height is 400 pixels */
 width: 100%;  /* The width is the width of the web page */
