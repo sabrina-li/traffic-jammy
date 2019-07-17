@@ -1,10 +1,8 @@
-$color-gray: rgba(0, 0, 0, 0.23);
-$color-white: rgba(255, 255, 255, 0.77);
+$color-white: rgba(0, 0, 0, 0.77);
 
 #bar-wrapper{
     height: 80vh;
     margin-left: 10px;
-    color:$color-white;
 }
 #heat-title{
     position: relative;
@@ -25,7 +23,7 @@ $color-white: rgba(255, 255, 255, 0.77);
 
 #clip{
     // clip-path: inset(0 0 10% 0);//TODO:clip based on the danger scale
-    background: black;
+    background: $color-white;
     position: absolute;
     top: 1px;
     left: 1px;

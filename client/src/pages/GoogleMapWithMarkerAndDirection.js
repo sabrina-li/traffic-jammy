@@ -2,8 +2,11 @@
 import React from 'react';
 import './googleMap.scss';
 import Container from '@material-ui/core/Container';
+import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 import { compose, withProps, withHandlers } from "recompose";
 import {
@@ -98,13 +101,13 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 						console.log("risk", risk)
 						this.setState({
 							risk: risk,
-							animate:true//used for animate the risk bar rise
+							animate: true//used for animate the risk bar rise
 						})
 					});
 				//TODO: handle removing and re-adding the animation class more gracefully
 				setTimeout(() => {
 					this.setState({
-						animate:false
+						animate: false
 					})
 				}, 1500);
 				this.setState({
@@ -142,28 +145,30 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		}, 1000);
 	}
 
+
 	render() {
 		return (<>
-			<form noValidate autoComplete="off" onSubmit={this.handleSubmit}  className="search-bar">
-				<Container maxWidth="lg">
-					<Grid
-						container
-						direction="row"
-						justify="left"
-						alignItems="center"
-						id="input-form"
-					>
-					<Grid item xs={6} sm={5}>
-						From: <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="origin"></PlacesAutocompleteInput>
-					</Grid>
-					<Grid item xs={6} sm={5}>
-						To: <PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="destination"></PlacesAutocompleteInput>
-					</Grid>
-						<Button variant="outlined" color="primary" onClick={this.handleSubmit}>Submit</Button>
-					</Grid>
-				</Container>
-			</form>
-
+			
+				<form noValidate autoComplete="off" onSubmit={this.handleSubmit} className="search-bar">
+					<AppBar maxWidth="lg" position="static" color="inherit">
+						<Grid
+							container
+							direction="row"
+							justify="left"
+							alignItems="center"
+							id="input-form"
+						>
+							<Grid item xs={6} sm={5}>
+								<span className="label">From: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Origin"></PlacesAutocompleteInput>
+							</Grid>
+							<Grid item xs={6} sm={5}>
+								<span className="label">To: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Destination"></PlacesAutocompleteInput>
+							</Grid>
+							<Button variant="outlined" color="primary" onClick={this.handleSubmit}>Submit</Button>
+						</Grid>
+					</AppBar>
+				</form>
+			
 			<Container maxWidth="lg" className="map-container">
 				<Grid
 					container
@@ -176,8 +181,33 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 					<Grid item sm={2}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
 				</Grid>
 			</Container>
+			<footer>
+			<Grid
+					container
+					direction="row"
+					justify="center"
+					alignItems="center"
+				>
+					<Grid item sm={1}></Grid>
+					<Grid item sm={6}>
+						<Typography variant="body2" gutterBottom>
+							This app utilize real life data from public database from <a href="https://www-fars.nhtsa.dot.gov/Main/index.aspx">FARS</a> fatalities data. Aiming to enable drivers who are unfamiliar to any area, to be able to have driving intuitions which could only be obtained by experience
+						</Typography>
+						<Typography variant="body2" gutterBottom>
+							Coming soon: crashes, traffic citations and police sightings data to be included from various platforms and data source to consolidate and visualize historical traffic and accident data. Giving drivers even more insights on local situations.
+						</Typography>						
+					</Grid>
+					<Grid item sm={1}></Grid>
+					<Grid item sm={2}>
+						<p>Created by: <a href="https://sabrina-li.herokuapp.com"><Typography variant="caption" gutterBottom>Sabrina Li</Typography></a></p>
+						Tech Stack: <Typography variant="caption" gutterBottom> MongoDB <br /> Express <br /> NodeJS <br /> React<br /> Google Map</Typography>
+					</Grid>
+				</Grid>
+				<div id="copyright">© Copyright</div>
+			</footer>
 		</>
 		)
 	}
 }
 export default GoogleMapWithMarkerAndDirection;
+

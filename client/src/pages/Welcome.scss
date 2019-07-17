@@ -1,19 +1,25 @@
 $color-gray: rgba(255, 255, 255, 0.77);
 $color-red: rgba(196, 44, 44, 0.77);
+
 @mixin padding {
-    padding: 0 0 5vw 5vw;
+    padding: 0 0 10vh 5vw;
 }
-.fixed-title{
-    @include padding();
-    padding-top:7vh;
+
+.welcome{
+    height: 100vh;
+}
+.fixed-title, .fixed-subtitle{
+    padding: 5vh 0 10vh 5vw;
     display: inline-block;
-    color: $color-gray;
-    font-family: 'Roboto', sans-serif;
+}
+.fixed-subtitle{
+    padding-left: 30px;
 }
 
 main{
     @include padding();
     height: 40px;
+    margin-bottom:20px;
     overflow: hidden;
 }
 
@@ -49,6 +55,17 @@ main{
         animation: hovering 1s ease-in-out infinite;
         display: block;
     }
+}
+.cards{
+    padding:0 25px;
+}
+.intro-card{
+    padding: 25px;
+    display: inline-block;
+}
+.card-content{
+    background:$color-gray;
+    opacity: 0.5;
 }
 
 
@@ -87,7 +104,7 @@ main{
     }
     100%{
         transform:translateY(-550%);
-        opacity:1;
+        opacity:0;
     }
 }
 

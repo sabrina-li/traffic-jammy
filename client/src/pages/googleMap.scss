@@ -1,12 +1,16 @@
 $color-gray: rgba(255, 255, 255, 0.9);
 $color-red: rgba(196, 44, 44, 0.77);
-$color-black: rgba(3, 3, 3, 0.5);
+$color-black: rgba(0, 0, 0, 0.7);
 /* Set the size of the div element that contains the map */
-
+.label{
+    position: relative;
+    padding:10px;
+    top:20px;
+}
 .map-container{
-    height: 100%;
     background: $color-black;
     padding-top:15px;
+    padding-bottom: 20px;
 }
 #map {
 height: 80vh;  /* The height is 400 pixels */
@@ -24,4 +28,23 @@ input{
 .search-bar{
     width: 100vw;
     background:$color-gray;
+    position: sticky;
+    top:0;
+    z-index: 100;
+}
+
+footer{
+    height: 200px;
+    background:$color-gray;
+    color:$color-black;
+    padding-top:10px;
+}
+
+header{
+    height: 100px;
+}
+#copyright{
+    text-align: center;
+    padding: 10px 0;
+    background:white;
 }
