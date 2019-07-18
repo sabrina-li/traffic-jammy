@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Fab from '@material-ui/core/Fab';
 
 
 import { compose, withProps, withHandlers } from "recompose";
@@ -125,7 +126,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	componentWillMount() {
 		this.setState({
 			markers: [],
-			animate:false,
+			flyIn:false,
 			googleMapsReady: false//Make sure the map is not ready before mounting, for auto complete
 		})
 	}
@@ -150,7 +151,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		}, 1000);
 		setTimeout(() => {
 			this.setState({
-				animate: true
+				flyIn: true
 			})
 		}, 200);
 	}
@@ -163,7 +164,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 						<Grid
 							container
 							direction="row"
-							// justify="left"
+							justify="center"
 							alignItems="center"
 							id="input-form"
 						>
@@ -173,24 +174,35 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 							<Grid item xs={6} sm={5}>
 								<span className="label">To: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Destination"></PlacesAutocompleteInput>
 							</Grid>
-							<Button variant="outlined" color="primary" onClick={this.handleSubmit}>Submit</Button>
+							<Button variant="outlined"  onClick={this.handleSubmit}>Submit</Button>
 						</Grid>
 					</AppBar>
 				</form>
 			
-			<Container className={(this.state.animate?"fly-in":"hide")+" map-container"}>
+			<Container className={(this.state.flyIn?"fly-in":"hide")+" map-container"}>
 				<Grid
 					container
 					direction="row"
 					justify="center"
-					alignItems="center"
+					// alignItems="center"
 				>
-					<Grid item sm={1}></Grid>
+					{/* <Grid item sm={1}></Grid> */}
 					<Grid item sm={8}><MapWithAMarkerClusterer {...this.state} /></Grid>
-					<Grid item sm={2}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
+					<Grid item sm={1}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
+					<Grid item sm={2}>
+					<Fab variant="extended" className="fa-btn-bottom">
+						<i className="fas fa-plus fa-2x fa-btn-right"></i>
+						 Add Crash
+					</Fab>
+					<Fab variant="extended" className="fa-btn-bottom">
+						<i className="fas fa-question fa-2x fa-btn-right"></i>
+						 How to
+					</Fab>
+						
+					</Grid>
 				</Grid>
 			</Container>
-			<footer className={this.state.animate?"fly-in":""}>
+			<footer className={this.state.flyIn?"fly-in":""}>
 			<Grid
 					container
 					direction="row"
