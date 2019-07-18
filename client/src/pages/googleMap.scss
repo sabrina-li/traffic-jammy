@@ -11,7 +11,7 @@ $color-black: rgba(0, 0, 0, 0.7);
     background: $color-black;
     padding-top:15px;
     padding-bottom: 20px;
-    margin-left:50px!important;
+    // margin-left:50px!important;
 }
 #map {
 height: 80vh;  /* The height is 400 pixels */
@@ -72,4 +72,8 @@ footer{
 }
 .fa-btn-right{
     margin-right:5px!important;
+}
+.fab-text{
+    font-size: 0.8rem;
+    line-height: 1;
 }

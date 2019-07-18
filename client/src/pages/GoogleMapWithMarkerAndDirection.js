@@ -7,6 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
+// import FormLabel from '@material-ui/core/FormLabel';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormGroup from '@material-ui/core/FormGroup';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+// import Checkbox from '@material-ui/core/Checkbox';
 
 
 import { compose, withProps, withHandlers } from "recompose";
@@ -64,8 +70,8 @@ const MapWithAMarkerClusterer = compose(
 				/>
 			})}
 		</MarkerClusterer> */}
-		
-		<HeatmapLayer data={props.markers.map(pt=>{return new window.google.maps.LatLng(pt.latitude,pt.longitude)})} options={{opacity:0.5,radius:20,maxIntensity:13}}></HeatmapLayer>
+
+		<HeatmapLayer data={props.markers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>
 );
@@ -84,7 +90,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	}
 
 	setLatLng = (name, latLng) => {
-		name=name.toLowerCase();
+		name = name.toLowerCase();
 		this.setState(
 			{ [name]: latLng }
 		)
@@ -105,7 +111,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 			if (status === window.google.maps.DirectionsStatus.OK) {
 				Polyline.predict(Polyline.decode(result.routes[0].overview_polyline), this.state.markers)
 					.then(risk => {
-						console.log("risk", risk)
+						risk = Math.round(risk * 100) / 100
 						this.setState({
 							risk: risk,
 							animate: true//used for animate the risk bar rise
@@ -133,16 +139,16 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	componentWillMount() {
 		this.setState({
 			markers: [],
-			flyIn:false,
+			flyIn: false,
 			googleMapsReady: false//Make sure the map is not ready before mounting, for auto complete
 		})
 	}
-		
+
 
 	componentDidMount() {
 		//TODO: dynamically change the header height via react
 		// document.getElementsByTagName("header")[0].style.height="100px";
-		document.querySelector("header").style.height="100px";
+		document.querySelector("header").style.height = "100px";
 		//TODO: load only markers in the shown map area, have to handle on zoom
 		//load all traffic violations form DB
 		API.getAllViolations().then(response => {
@@ -166,76 +172,87 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 
 	render() {
 		return (<>
-				<form noValidate autoComplete="off" onSubmit={this.handleSubmit} className="fly-in search-bar">
-					<AppBar position="static" color="inherit">
-						<Grid
-							container
-							direction="row"
-							justify="center"
-							alignItems="center"
-							id="input-form"
-						>
-							<Grid item xs={6} sm={5}>
-								<span className="label">From: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Origin"></PlacesAutocompleteInput>
-							</Grid>
-							<Grid item xs={6} sm={5}>
-								<span className="label">To: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Destination"></PlacesAutocompleteInput>
-							</Grid>
-							<Button variant="outlined"  onClick={this.handleSubmit}>Submit</Button>
+			<form noValidate autoComplete="off" onSubmit={this.handleSubmit} className="fly-in search-bar">
+				<AppBar position="static" color="inherit">
+					<Grid
+						container
+						direction="row"
+						justify="center"
+						alignItems="center"
+						id="input-form"
+					>
+						<Grid item xs={6} sm={5}>
+							<span className="label">From: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Origin"></PlacesAutocompleteInput>
 						</Grid>
-					</AppBar>
-				</form>
-			
-			<Container className={(this.state.flyIn?"fly-in":"hide")+" map-container"}>
+						<Grid item xs={6} sm={5}>
+							<span className="label">To: </span><PlacesAutocompleteInput googleMapsReady={this.state.googleMapsReady} setLatLng={this.setLatLng} name="Destination"></PlacesAutocompleteInput>
+						</Grid>
+						<Button variant="outlined" onClick={this.handleSubmit}>Submit</Button>
+					</Grid>
+				</AppBar>
+			</form>
+
+			<Container className={(this.state.flyIn ? "fly-in" : "hide") + " map-container"}>
 				<Grid
 					container
 					direction="row"
 					justify="center"
-					// alignItems="center"
+				// alignItems="center"
 				>
-					{/* <Grid item sm={1}></Grid> */}
-					<Grid item sm={8}><MapWithAMarkerClusterer {...this.state} /></Grid>
-					<Grid item sm={1}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
-					<Grid item sm={2}>
-					<Fab variant="extended" className="fa-btn-bottom">
-						<i className="fas fa-plus fa-2x fa-btn-right"></i>
-						 Add Crash
-					</Fab>
-					<Fab variant="extended" className="fa-btn-bottom">
-						<i className="fas fa-question fa-2x fa-btn-right"></i>
-						 How to
-					</Fab>
-						
+					{/*<Grid item sm={1}>
+						 <FormControl component="fieldset">
+							<FormLabel component="legend">Assign responsibility</FormLabel>
+							<FormGroup>
+								<FormControlLabel
+									control={<Checkbox checked="true" value="gilad" />}
+									label="Gilad Gray"
+								/>
+							</FormGroup>
+							<FormHelperText>Be careful</FormHelperText>
+						</FormControl> 
+					</Grid>*/}
+						<Grid item sm={8}><MapWithAMarkerClusterer {...this.state} /></Grid>
+						<Grid item sm={1}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
+						<Grid item sm={1}>
+							<div style={{ paddingTop: "100px" }}></div>
+							<Fab variant="extended" className="fa-btn-bottom">
+								<i className="fas fa-plus fa-2x fa-btn-right"></i>
+								<span className="fab-text">Add Crash</span>
+							</Fab>
+							<Fab variant="extended" className="fa-btn-bottom">
+								<i className="fas fa-question fa-2x fa-btn-right"></i>
+								<span className="fab-text">How to</span>
+							</Fab>
+						</Grid>
 					</Grid>
-				</Grid>
 			</Container>
-			<footer className={this.state.flyIn?"fly-in":""}>
-			<Grid
-					container
-					direction="row"
-					justify="center"
-					alignItems="center"
-				>
-					<Grid item sm={1}></Grid>
-					<Grid item sm={6}>
-						<Typography variant="body2" gutterBottom>
-							This app utilize real life data from public database from <a href="https://www-fars.nhtsa.dot.gov/Main/index.aspx">FARS</a> fatalities data. Aiming to enable drivers who are unfamiliar to any area, to be able to have driving intuitions which could only be obtained by experience
+				<footer className={this.state.flyIn ? "fly-in" : ""}>
+					<Grid
+						container
+						direction="row"
+						justify="center"
+						alignItems="center"
+					>
+						<Grid item sm={1}></Grid>
+						<Grid item sm={6}>
+							<Typography variant="body2" gutterBottom>
+								This app utilize real life data from public database from <a href="https://www-fars.nhtsa.dot.gov/Main/index.aspx">FARS</a> fatalities data. Aiming to enable drivers who are unfamiliar to any area, to be able to have driving intuitions which could only be obtained by experience
 						</Typography>
-						<Typography variant="body2" gutterBottom>
-							Coming soon: crashes, traffic citations and police sightings data to be included from various platforms and data source to consolidate and visualize historical traffic and accident data. Giving drivers even more insights on local situations.
-						</Typography>						
+							<Typography variant="body2" gutterBottom>
+								Coming soon: crashes, traffic citations and police sightings data to be included from various platforms and data source to consolidate and visualize historical traffic and accident data. Giving drivers even more insights on local situations.
+						</Typography>
+						</Grid>
+						<Grid item sm={1}></Grid>
+						<Grid item sm={2}>
+							<p>Created by: <a href="https://sabrina-li.herokuapp.com"><Typography variant="caption" gutterBottom>Sabrina Li</Typography></a></p>
+							Tech Stack: <Typography variant="caption" gutterBottom> MongoDB <br /> Express <br /> NodeJS <br /> React<br /> Google Map</Typography>
+						</Grid>
 					</Grid>
-					<Grid item sm={1}></Grid>
-					<Grid item sm={2}>
-						<p>Created by: <a href="https://sabrina-li.herokuapp.com"><Typography variant="caption" gutterBottom>Sabrina Li</Typography></a></p>
-						Tech Stack: <Typography variant="caption" gutterBottom> MongoDB <br /> Express <br /> NodeJS <br /> React<br /> Google Map</Typography>
-					</Grid>
-				</Grid>
-				<div id="copyright">© Copyright</div>
-			</footer>
+					<div id="copyright">© Copyright</div>
+				</footer>
 		</>
-		)
+			)
+		}
 	}
-}
-export default GoogleMapWithMarkerAndDirection;
-
+	export default GoogleMapWithMarkerAndDirection;
+	
