@@ -26,6 +26,8 @@ main{
 .facts{
     color: $color-gray;
     padding: 50px 70px 40px 40px;
+}
+.roll{
     animation: roll 20s ease-in-out infinite;
 }
 .red{
@@ -129,5 +131,22 @@ main{
     }
     100%{
         transform: scale(3.0,1) translateY(10%); 
+    }
+}
+
+.fly-away{
+    animation: fly 2s ease-in;
+    // transform: scale(3.0,1) translateY(-200%); 
+}
+.fly-away-fast{
+    animation: fly 1s ease-in;
+    // transform: scale(3.0,1) translateY(-200%); 
+}
+@keyframes fly{
+    0%{
+        transform:translateY(0);
+    }
+    100%{
+        transform: translateY(-100vh); 
     }
 }

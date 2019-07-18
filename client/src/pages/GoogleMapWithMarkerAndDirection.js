@@ -125,11 +125,16 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	componentWillMount() {
 		this.setState({
 			markers: [],
+			animate:false,
 			googleMapsReady: false//Make sure the map is not ready before mounting, for auto complete
 		})
 	}
+		
 
 	componentDidMount() {
+		//TODO: dynamically change the header height via react
+		// document.getElementsByTagName("header")[0].style.height="100px";
+		document.querySelector("header").style.height="100px";
 		//TODO: load only markers in the shown map area, have to handle on zoom
 		//load all traffic violations form DB
 		API.getAllViolations().then(response => {
@@ -143,18 +148,22 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 				googleMapsReady: true
 			})
 		}, 1000);
+		setTimeout(() => {
+			this.setState({
+				animate: true
+			})
+		}, 200);
 	}
 
 
 	render() {
 		return (<>
-			
-				<form noValidate autoComplete="off" onSubmit={this.handleSubmit} className="search-bar">
-					<AppBar maxWidth="lg" position="static" color="inherit">
+				<form noValidate autoComplete="off" onSubmit={this.handleSubmit} className="fly-in search-bar">
+					<AppBar position="static" color="inherit">
 						<Grid
 							container
 							direction="row"
-							justify="left"
+							// justify="left"
 							alignItems="center"
 							id="input-form"
 						>
@@ -169,7 +178,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 					</AppBar>
 				</form>
 			
-			<Container maxWidth="lg" className="map-container">
+			<Container className={(this.state.animate?"fly-in":"hide")+" map-container"}>
 				<Grid
 					container
 					direction="row"
@@ -181,7 +190,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 					<Grid item sm={2}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
 				</Grid>
 			</Container>
-			<footer>
+			<footer className={this.state.animate?"fly-in":""}>
 			<Grid
 					container
 					direction="row"

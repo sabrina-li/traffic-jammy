@@ -33,16 +33,14 @@ HideOnScroll.propTypes = {
 	window: PropTypes.func,
 };
 
-
 function App() {
   return (
     <Router>
-      
       <div className="background">
       <HideOnScroll >
       <header>
                 <Typography variant="h2" gutterBottom className="fixed-title">KYR </Typography>
-                <Typography variant="h6" gutterBottom className="fixed-subtitle"> Know Your Roads. An interactive traffic & road condition analytic map.</Typography>
+                <Typography variant="h6" gutterBottom className="fixed-subtitle"> Know Your Roads. An interactive traffic & road conditions analytic map.</Typography>
       </header>
       </HideOnScroll>
         <Switch>
