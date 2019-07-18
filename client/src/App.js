@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import GoogleMapWithMarkerAndDirection from './pages/GoogleMapWithMarkerAndDirection.js'
-import addData from './pages/addData.js'
 import Welcome from './pages/Welcome.js'
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
@@ -46,7 +45,6 @@ function App() {
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route exact path="/map" component={GoogleMapWithMarkerAndDirection} />
-          <Route exact path="/add" component={addData} />
           {/* <Route exact path="/books/:id" component={Detail} /> */}
           {/* <Route component={NoMatch} /> */}
         </Switch>

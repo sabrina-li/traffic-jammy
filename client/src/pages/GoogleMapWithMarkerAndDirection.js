@@ -18,6 +18,7 @@ import {
 	DirectionsRenderer,
 } from "react-google-maps";
 import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
+import HeatmapLayer from "react-google-maps/lib/components/visualization/HeatmapLayer";
 
 import { API, Polyline } from "../utils";
 import PlacesAutocompleteInput from '../components/PlacesAutocomplete.js';
@@ -29,7 +30,7 @@ const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const MapWithAMarkerClusterer = compose(
 	withProps({
-		googleMapURL: "https://maps.googleapis.com/maps/api/js?key=" + gKey + "&v=3.exp&libraries=geometry,drawing,places",
+		googleMapURL: "https://maps.googleapis.com/maps/api/js?key=" + gKey + "&v=3.exp&libraries=geometry,drawing,places,visualization",
 		loadingElement: <div id="map" />,
 		containerElement: <div id="map" />,
 		mapElement: <div id="map" />,
@@ -48,7 +49,7 @@ const MapWithAMarkerClusterer = compose(
 		defaultZoom={9}
 		defaultCenter={{ lat: 33.7490, lng: -84.3880 }}//default to atlanta
 	>
-		<MarkerClusterer
+		{/* <MarkerClusterer
 			onClick={props.onMarkerClustererClick}
 			averageCenter
 			enableRetinaIcons={true}
@@ -62,7 +63,9 @@ const MapWithAMarkerClusterer = compose(
 					position={{ lat: marker.latitude, lng: marker.longitude }}
 				/>
 			})}
-		</MarkerClusterer>
+		</MarkerClusterer> */}
+		
+		<HeatmapLayer data={props.markers.map(pt=>{return new window.google.maps.LatLng(pt.latitude,pt.longitude)})} options={{opacity:0.5,radius:20,maxIntensity:13}}></HeatmapLayer>
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>
 );
@@ -81,9 +84,11 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	}
 
 	setLatLng = (name, latLng) => {
+		name=name.toLowerCase();
 		this.setState(
 			{ [name]: latLng }
 		)
+		console.log(this.state)
 	}
 
 	handleSubmit = (event) => {
@@ -96,6 +101,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 			destination: new window.google.maps.LatLng(this.state.destination.lat, this.state.destination.lng),
 			travelMode: window.google.maps.TravelMode.DRIVING,//default to driving
 		}, (result, status) => {
+			console.log(this.state);
 			if (status === window.google.maps.DirectionsStatus.OK) {
 				Polyline.predict(Polyline.decode(result.routes[0].overview_polyline), this.state.markers)
 					.then(risk => {
@@ -119,6 +125,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 				console.error(`error fetching directions ${result}`);
 			}
 		});
+
 
 	}
 
