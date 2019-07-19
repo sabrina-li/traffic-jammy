@@ -29,6 +29,7 @@ import HeatmapLayer from "react-google-maps/lib/components/visualization/Heatmap
 import { API, Polyline } from "../utils";
 import PlacesAutocompleteInput from '../components/PlacesAutocomplete.js';
 import HeatBar from '../components/HeatBar.js'
+import SimpleModal from '../components/addData'
 
 
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -217,7 +218,8 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 							<div style={{ paddingTop: "100px" }}></div>
 							<Fab variant="extended" className="fa-btn-bottom">
 								<i className="fas fa-plus fa-2x fa-btn-right"></i>
-								<span className="fab-text">Add Crash</span>
+								{/* <span className="fab-text">Add Crash</span> */}
+								<SimpleModal></SimpleModal>
 							</Fab>
 							<Fab variant="extended" className="fa-btn-bottom">
 								<i className="fas fa-question fa-2x fa-btn-right"></i>
