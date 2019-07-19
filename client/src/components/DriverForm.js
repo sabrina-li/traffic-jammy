@@ -37,11 +37,12 @@ export default function TextFields(props) {
         setValues({ ...values, [name]: event.target.value });
     };
     const handleSubmit = evt => {
-        console.log(values);
+        props.onClose();
         API.clusterUser(values)
             .then(function (response) {
                 console.log(response);
-                props.setResultMarkers(response)
+                props.setResultMarkers(response.data);
+                
             })
             .catch(function (error) {
                 console.log(error);
@@ -183,7 +184,7 @@ export default function TextFields(props) {
                 }}
                 margin="normal"
             >
-                {Enums.modelyr.map(option => {
+                {Enums.modelyr.reverse().map(option => {
                     const key = Object.keys(option)[0];
                     return <option key={key} value={option[key]}>
                         {option[key]}

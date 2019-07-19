@@ -41,6 +41,7 @@ export default function SimpleModal(props) {
     setOpen(false);
   };
 
+  
   return (
     <div>
       <div type="button" onClick={handleOpen}>
@@ -54,7 +55,7 @@ export default function SimpleModal(props) {
       >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="modal-title">Driver Info</h2>
-          <DriverForm {...props}></DriverForm>
+          <DriverForm {...props} onClose={handleClose}></DriverForm>
         </div>
       </Modal>
     </div>

@@ -171,7 +171,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		}, 200);
 	}
 
-	setResultMarkers(markers){
+	setResultMarkers = (markers)=>{
 		this.setState({
 			resultMarkers:markers
 		})
@@ -226,6 +226,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 							<Fab variant="extended" className="fa-btn-bottom">
 								<i className="fas fa-plus fa-2x fa-btn-right"></i>
 								{/* <span className="fab-text">Add Crash</span> */}
+								{console.log(this)}
 								<SimpleModal setResultMarkers={this.setResultMarkers}></SimpleModal>
 							</Fab>
 							<Fab variant="extended" className="fa-btn-bottom">
