@@ -29,7 +29,7 @@ import HeatmapLayer from "react-google-maps/lib/components/visualization/Heatmap
 import { API, Polyline } from "../utils";
 import PlacesAutocompleteInput from '../components/PlacesAutocomplete.js';
 import HeatBar from '../components/HeatBar.js'
-import SimpleModal from '../components/addData'
+import SimpleModal from '../components/SimpleModal'
 
 
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -56,21 +56,21 @@ const MapWithAMarkerClusterer = compose(
 		defaultZoom={9}
 		defaultCenter={{ lat: 33.7490, lng: -84.3880 }}//default to atlanta
 	>
-		{/* <MarkerClusterer
+		<MarkerClusterer
 			onClick={props.onMarkerClustererClick}
 			averageCenter
 			enableRetinaIcons={true}
 			defaultEnableRetinaIcons
 			gridSize={40}
 		>
-			{props.markers.map(marker => {
+			{props.resultMarkers.map(marker => {
 				return <Marker
 					icon={"/cemetery-512.png"}//set custome icon
 					key={marker._id}
 					position={{ lat: marker.latitude, lng: marker.longitude }}
 				/>
 			})}
-		</MarkerClusterer> */}
+		</MarkerClusterer>
 
 		<HeatmapLayer data={props.markers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
@@ -140,6 +140,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 	componentWillMount() {
 		this.setState({
 			markers: [],
+			resultMarkers:[],
 			flyIn: false,
 			googleMapsReady: false//Make sure the map is not ready before mounting, for auto complete
 		})
@@ -168,6 +169,12 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 				flyIn: true
 			})
 		}, 200);
+	}
+
+	setResultMarkers(markers){
+		this.setState({
+			resultMarkers:markers
+		})
 	}
 
 
@@ -219,7 +226,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 							<Fab variant="extended" className="fa-btn-bottom">
 								<i className="fas fa-plus fa-2x fa-btn-right"></i>
 								{/* <span className="fab-text">Add Crash</span> */}
-								<SimpleModal></SimpleModal>
+								<SimpleModal setResultMarkers={this.setResultMarkers}></SimpleModal>
 							</Fab>
 							<Fab variant="extended" className="fa-btn-bottom">
 								<i className="fas fa-question fa-2x fa-btn-right"></i>

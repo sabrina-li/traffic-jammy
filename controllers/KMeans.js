@@ -1,15 +1,11 @@
-const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/trafficdb", { useNewUrlParser: true })
-
-const db = require("../../../models");
+const db = require("../models");
 var cluster = require('k-means');
 
-const clusterUser =  (userMatrix) => {
+const clusterUser =  (data,userMatrix) => {
+    console.log("here",userMatrix)
 
     return new Promise((res,rej)=>{//TODO: error handling
-        db.Violation.find({}).then(data => {
             var totalData = [];
-            // totalData.push(userMatrix);
         
             for (var i = 0; i < data.length; ++i) {
                 var row = [];
@@ -19,7 +15,7 @@ const clusterUser =  (userMatrix) => {
                 row.push(data[i].sex|| 0);
                 row.push(data[i].body|| 0);
                 row.push(data[i].make|| 0);
-                row.push(data[i].model|| 0);
+                // row.push(data[i].model|| 0);//model number is based on make, TODO
                 row.push(data[i].modelyr|| 0);
                 row.push(data[i].feet || 0);
                 row.push(data[i].weight || 0);
@@ -34,21 +30,22 @@ const clusterUser =  (userMatrix) => {
             }
         
             var finalResult = [];
+            console.log("before");
             cluster(totalData, options, result => {
+                console.log("after",result)
                 const clusterID = result.finalMatrix.shift()[0];
                 result.finalMatrix.forEach((element,idx) => {
                     if(element[0]===clusterID){
                         finalResult.push(data[idx])
                     }
                 });
+                console.log("after")
                 res(finalResult);
             })
-            
-        })
     })
 
    
 }
 
 
-clusterUser([0])
+module.exports = clusterUser;

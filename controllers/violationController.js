@@ -1,6 +1,19 @@
 const db = require("../models");
+const clusterUser =require('./KMeans');
 // Defining methods for the Controller
 module.exports = {
+  //api/violation/clusterUser
+  clusterUser: (req, res) => {
+    db.Violation
+      .find()  
+      .limit(10000)    //MAX 10k records
+      .then(dbModel => {
+        clusterUser(dbModel,req.body).then(result=>{
+          res.json(result);
+        })
+      })
+      .catch(err => res.status(422).json(err));
+  },
   //api/violation?State=GA
   findAllViolationsForState: (req, res) => {
     //TODO: add year

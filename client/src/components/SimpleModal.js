@@ -18,7 +18,7 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width: 960,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal() {
+export default function SimpleModal(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -54,7 +54,7 @@ export default function SimpleModal() {
       >
         <div style={modalStyle} className={classes.paper}>
           <h2 id="modal-title">Driver Info</h2>
-          <DriverForm></DriverForm>
+          <DriverForm {...props}></DriverForm>
         </div>
       </Modal>
     </div>

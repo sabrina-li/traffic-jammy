@@ -4,7 +4,8 @@ const violationController = require("../../controllers/violationController");
 // Matches with "/api/books"
 router.route("/")
   .get(violationController.findAllViolationsForState)
-//   .post(violationController.create);
+router.route("/clusterUser")
+  .post(violationController.clusterUser);
 
 // Matches with "/api/books/:id"
 router
