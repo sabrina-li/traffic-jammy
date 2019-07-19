@@ -37,10 +37,12 @@ export default function TextFields(props) {
         setValues({ ...values, [name]: event.target.value });
     };
     const handleSubmit = evt => {
+        setValues({ ...values, loading: true });
         API.clusterUser(values)
             .then(function (response) {
                 console.log(response.length);
                 props.setResultMarkers(response.data);
+                setValues({ ...values, loading: false });
                 props.onClose();//TODO: show loading icon while loading
             })
             .catch(function (error) {
@@ -50,6 +52,7 @@ export default function TextFields(props) {
 
     return (
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit}>
+            {values.loading?<div class="loader"></div>:''}
             <TextField
                 id="Age"
                 label="age"
