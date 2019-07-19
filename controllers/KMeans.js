@@ -25,7 +25,7 @@ const clusterUser =  (data,userMatrix) => {
             }
         
             var options = {
-                clusters: 10, // number of clusters we want to cluster our data into. The default is 2. Sometimes, it is natural for one or more clusters to end up being excluded if they would not contain any data points.
+                clusters: 20, // number of clusters we want to cluster our data into. The default is 2. Sometimes, it is natural for one or more clusters to end up being excluded if they would not contain any data points.
                 iterations: 1000 // number of iterations we want our k-means to run. The higher the number, the potentially more accurate, but it might take longer. The algorithm will cut off early if clusters stay perfectly consistent between iterations.
             }
         

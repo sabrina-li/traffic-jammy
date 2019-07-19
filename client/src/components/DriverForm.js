@@ -37,12 +37,11 @@ export default function TextFields(props) {
         setValues({ ...values, [name]: event.target.value });
     };
     const handleSubmit = evt => {
-        props.onClose();
         API.clusterUser(values)
             .then(function (response) {
-                console.log(response);
+                console.log(response.length);
                 props.setResultMarkers(response.data);
-                
+                props.onClose();//TODO: show loading icon while loading
             })
             .catch(function (error) {
                 console.log(error);
