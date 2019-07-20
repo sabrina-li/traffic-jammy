@@ -14,8 +14,15 @@ app.use(bodyParser.json())
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-    console.log("production!")
-    app.use(express.static("client/build"));
+    // console.log("production!")
+    // app.use(express.static("client/build"));
+    // Serve static files from the React frontend app
+    app.use(express.static(path.join(__dirname, 'client/build')))
+    // Anything that doesn't match the above, send back index.html
+    app.get('*', (req, res) => {
+        console.log(process.env.NODE_ENV );
+        res.sendFile(path.join(__dirname + '/client/build/index.html'))
+    })
 }
 // Add routes, both API and view
 app.use(routes);
