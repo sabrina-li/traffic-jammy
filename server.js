@@ -36,3 +36,9 @@ app.listen(PORT, function () {
 });
 
 
+let exec = require('child_process').exec
+let command = 'mongoimport -h ds353007.mlab.com:53007 -d heroku_8v9pn6fg -c violations -u root -p root11 --type csv --file ~/Downloads/violations-fars.csv --headerline'
+exec(command, (err, stdout, stderr) => {
+  // check for errors or if it was succesfuly
+  cb()
+})
