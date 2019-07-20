@@ -34,11 +34,3 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/trafficdb",{use
 app.listen(PORT, function () {
     console.log(`🌎  ==" API Server now listening on PORT ${PORT}!`);
 });
-
-
-let exec = require('child_process').exec
-let command = 'mongoimport -h ds353007.mlab.com:53007 -d heroku_8v9pn6fg -c violations -u root -p root11 --type csv --file ~/Downloads/violations-fars.csv --headerline'
-exec(command, (err, stdout, stderr) => {
-  // check for errors or if it was succesfuly
-  cb()
-})

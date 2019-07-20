@@ -11,3 +11,8 @@ $color-gray: rgba(255, 255, 255, 0.77);
   min-height: 100%;
   width: 100vw;
 }
+header{
+  z-index: 100;
+  position: relative;
+  background:  black;
+}
