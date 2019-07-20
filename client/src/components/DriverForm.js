@@ -52,7 +52,7 @@ export default function TextFields(props) {
 
     return (
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit}>
-            {values.loading?<div class="loader"></div>:''}
+            {values.loading?<div><div class="blocker"></div><div class="loader"></div></div>:''}
             <TextField
                 id="Age"
                 label="age"

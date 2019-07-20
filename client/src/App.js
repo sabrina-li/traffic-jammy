@@ -44,7 +44,7 @@ function App() {
       </HideOnScroll>
         <Switch>
           <Route exact path="/" component={Welcome} />
-          <Route exact path="/map" component={GoogleMapWithMarkerAndDirection} />
+          <Route path="/map" component={GoogleMapWithMarkerAndDirection} />
           {/* <Route exact path="/books/:id" component={Detail} /> */}
           {/* <Route component={NoMatch} /> */}
         </Switch>

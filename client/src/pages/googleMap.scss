@@ -78,7 +78,17 @@ footer{
     line-height: 1;
 }
 
+.blocker{
+    position: fixed;
+    top:0;
+    left: 0;
+    height: 100vh;
+    width:100vw;
+    background: black;
+    opacity: 0.3;
+}
 .loader {
+    opacity: 3;
     position: fixed;
     left: 40%;
     border: 16px solid #f3f3f3; /* Light grey */
