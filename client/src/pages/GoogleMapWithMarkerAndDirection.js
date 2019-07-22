@@ -72,8 +72,8 @@ const MapWithAMarkerClusterer = compose(
 				/>
 			})}
 		</MarkerClusterer>
-{console.log(props.markers)}
-		<HeatmapLayer data={props.markers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
+{console.log(props.gmarkers)}
+		<HeatmapLayer data={props.gmarkers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>
 );
@@ -111,7 +111,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		}, (result, status) => {
 			console.log(this.state);
 			if (status === window.google.maps.DirectionsStatus.OK) {
-				Polyline.predict(Polyline.decode(result.routes[0].overview_polyline), this.state.markers)
+				Polyline.predict(Polyline.decode(result.routes[0].overview_polyline), this.state.gmarkers)
 					.then(risk => {
 						risk = Math.round(risk * 100) / 100
 						this.setState({
@@ -140,7 +140,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 
 	componentWillMount() {
 		this.setState({
-			markers: [],
+			gmarkers: [],
 			resultMarkers:[],
 			flyIn: false,
 			googleMapsReady: false//Make sure the map is not ready before mounting, for auto complete
@@ -155,8 +155,9 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		//TODO: load only markers in the shown map area, have to handle on zoom
 		//load all traffic violations form DB
 		API.getAllViolations().then(response => {
+			console.log("response:",response.data)
 			this.setState({
-				markers: response.data
+				gmarkers: response.data
 			})
 		})
 		//TODO: this is a temp work around for the goole api load issue, will work on permanent solution
