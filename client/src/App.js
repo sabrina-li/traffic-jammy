@@ -10,6 +10,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 
 dotenv.config();
+console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
 function HideOnScroll(props) {
 	const { children, window } = props;

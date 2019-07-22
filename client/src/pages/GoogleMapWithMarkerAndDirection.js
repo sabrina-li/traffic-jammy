@@ -31,7 +31,6 @@ import PlacesAutocompleteInput from '../components/PlacesAutocomplete.js';
 import HeatBar from '../components/HeatBar.js'
 import SimpleModal from '../components/SimpleModal'
 
-
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
