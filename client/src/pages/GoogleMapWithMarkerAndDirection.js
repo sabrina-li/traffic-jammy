@@ -47,7 +47,7 @@ const MapWithAMarkerClusterer = compose(
 		defaultCenter={{ lat: 33.7490, lng: -84.3880 }}//default to atlanta
 	>
 		{console.log("props",props)}
-		<MarkerClusterer
+		{/* <MarkerClusterer
 			onClick={props.onMarkerClustererClick}
 			averageCenter
 			enableRetinaIcons={true}
@@ -62,9 +62,9 @@ const MapWithAMarkerClusterer = compose(
 					position={{ lat: marker.latitude, lng: marker.longitude }}
 				/>
 			})}
-		</MarkerClusterer>
+		</MarkerClusterer> */}
 		{console.log("gmarkers:",props.gmarkers)}
-		<HeatmapLayer data={props.gmarkers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
+		{/* <HeatmapLayer data={props.gmarkers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer> */}
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>
 );
