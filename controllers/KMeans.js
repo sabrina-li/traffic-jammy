@@ -30,7 +30,7 @@ const clusterUser =  (data,userMatrix) => {
             }
         
             var finalResult = [];
-            console.log("before");
+            console.log("before",totalData);
             cluster(totalData, options, result => {
                 console.log("after",result)
                 const clusterID = result.finalMatrix.shift()[0];
