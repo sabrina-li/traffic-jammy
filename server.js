@@ -12,6 +12,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// Add routes, both API and view
+app.use(routes);
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
     // console.log("production!")
@@ -24,8 +27,6 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname + '/client/build/index.html'))
     })
 }
-// Add routes, both API and view
-app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/trafficdb",{useNewUrlParser: true})
