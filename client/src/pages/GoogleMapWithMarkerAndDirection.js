@@ -1,4 +1,3 @@
-// import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 import React from 'react';
 import './googleMap.scss';
 import Container from '@material-ui/core/Container';
@@ -7,13 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
-// import FormLabel from '@material-ui/core/FormLabel';
-// import FormControl from '@material-ui/core/FormControl';
-// import FormGroup from '@material-ui/core/FormGroup';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-// import Checkbox from '@material-ui/core/Checkbox';
-
 
 import { compose, withProps, withHandlers } from "recompose";
 import {
@@ -32,7 +24,6 @@ import HeatBar from '../components/HeatBar.js'
 import SimpleModal from '../components/SimpleModal'
 
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
 
 const MapWithAMarkerClusterer = compose(
 	withProps({
@@ -95,7 +86,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		this.setState(
 			{ [name]: latLng }
 		)
-		console.log(this.state)
+		console.log("setlatlng",this.state)
 	}
 
 	handleSubmit = (event) => {
@@ -103,6 +94,9 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		//TODO: check both origin and destination are there
 
 		const DirectionsService = new window.google.maps.DirectionsService();
+		console.log("origin",this.state.origin);
+		console.log("destination",this.state.destination);
+		
 		DirectionsService.route({
 			origin: new window.google.maps.LatLng(this.state.origin.lat, this.state.origin.lng),
 			destination: new window.google.maps.LatLng(this.state.destination.lat, this.state.destination.lng),
@@ -159,7 +153,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 				gmarkers: response.data
 			})
 		})
-		//TODO: this is a temp work around for the goole api load issue, will work on permanent solution
+		//TODO: this is a temp work around for the google api load issue, will work on permanent solution
 		setTimeout(() => {
 			this.setState({
 				googleMapsReady: true
