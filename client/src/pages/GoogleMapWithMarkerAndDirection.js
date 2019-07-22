@@ -55,6 +55,7 @@ const MapWithAMarkerClusterer = compose(
 			gridSize={40}
 		>
 			{props.resultMarkers.map(marker => {
+				console.log("result marker:",marker);
 				return <Marker
 					icon={"/cemetery-512.png"}//set custome icon
 					key={marker._id}
@@ -62,7 +63,7 @@ const MapWithAMarkerClusterer = compose(
 				/>
 			})}
 		</MarkerClusterer>
-		{console.log(props.gmarkers)}
+		{console.log("gmarkers:",props.gmarkers)}
 		<HeatmapLayer data={props.gmarkers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>
