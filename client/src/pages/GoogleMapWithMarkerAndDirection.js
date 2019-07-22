@@ -62,7 +62,7 @@ const MapWithAMarkerClusterer = compose(
 				/>
 			})}
 		</MarkerClusterer>
-{console.log(props.gmarkers)}
+		{console.log(props.gmarkers)}
 		<HeatmapLayer data={props.gmarkers.map(pt => { return new window.google.maps.LatLng(pt.latitude, pt.longitude) })} options={{ opacity: 0.5, radius: 20, maxIntensity: 13 }}></HeatmapLayer>
 		{props.directions && <DirectionsRenderer directions={props.directions} />}
 	</GoogleMap>
@@ -96,7 +96,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 		const DirectionsService = new window.google.maps.DirectionsService();
 		console.log("origin",this.state.origin);
 		console.log("destination",this.state.destination);
-		
+
 		DirectionsService.route({
 			origin: new window.google.maps.LatLng(this.state.origin.lat, this.state.origin.lng),
 			destination: new window.google.maps.LatLng(this.state.destination.lat, this.state.destination.lng),
@@ -214,6 +214,7 @@ class GoogleMapWithMarkerAndDirection extends React.PureComponent {
 							<FormHelperText>Be careful</FormHelperText>
 						</FormControl> 
 					</Grid>*/}
+					{console.log("state here:",this.state)}
 						<Grid item sm={8}><MapWithAMarkerClusterer {...this.state} /></Grid>
 						<Grid item sm={1}><HeatBar risk={this.state.risk} animate={this.state.animate}></HeatBar></Grid>
 						<Grid item sm={1}>
