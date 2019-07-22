@@ -56,6 +56,7 @@ const MapWithAMarkerClusterer = compose(
 		defaultZoom={9}
 		defaultCenter={{ lat: 33.7490, lng: -84.3880 }}//default to atlanta
 	>
+		{console.log("props",props)}
 		<MarkerClusterer
 			onClick={props.onMarkerClustererClick}
 			averageCenter
