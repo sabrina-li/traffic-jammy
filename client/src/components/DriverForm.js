@@ -40,7 +40,7 @@ export default function TextFields(props) {
         setValues({ ...values, loading: true });
         API.clusterUser(values)
             .then(function (response) {
-                console.log(response.length);
+                console.log("response length",response.length);
                 props.setResultMarkers(response.data);
                 setValues({ ...values, loading: false });
                 props.onClose();//TODO: show loading icon while loading
@@ -52,7 +52,7 @@ export default function TextFields(props) {
 
     return (
         <form className={classes.container} noValidate autoComplete="off" onSubmit={handleSubmit}>
-            {values.loading?<div><div class="blocker"></div><div class="loader"></div></div>:''}
+            {values.loading?<div><div className="blocker"></div><div className="loader"></div></div>:''}
             <TextField
                 id="Age"
                 label="age"

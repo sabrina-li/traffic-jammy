@@ -1,4 +1,5 @@
 import React from 'react';
+import dotenv from 'dotenv'
 import './googleMap.scss';
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
@@ -23,7 +24,9 @@ import PlacesAutocompleteInput from '../components/PlacesAutocomplete.js';
 import HeatBar from '../components/HeatBar.js'
 import SimpleModal from '../components/SimpleModal'
 
+dotenv.config();
 const gKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+console.log("gkey",gKey)
 
 const MapWithAMarkerClusterer = compose(
 	withProps({

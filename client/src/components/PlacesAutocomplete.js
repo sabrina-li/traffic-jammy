@@ -51,7 +51,7 @@ class PlacesAutocompleteInput extends Component {
                 <span>
                     <TextField
                     style={{ width: "80%" }}
-                    defaultValue="foo"
+                    // defaultValue="foo"
                     label={this.props.name}
                     margin="normal"
                     variant="outlined"

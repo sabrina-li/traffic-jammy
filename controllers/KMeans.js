@@ -3,6 +3,7 @@ var cluster = require('k-means');
 
 const clusterUser =  (data,userMatrix) => {
     console.log("here",userMatrix)
+    // console.log("here",data)
 
     return new Promise((res,rej)=>{//TODO: error handling
             var totalData = [];
@@ -30,7 +31,7 @@ const clusterUser =  (data,userMatrix) => {
             }
         
             var finalResult = [];
-            console.log("before",totalData);
+            console.log("before",totalData,options);
             cluster(totalData, options, result => {
                 console.log("after",result)
                 const clusterID = result.finalMatrix.shift()[0];
