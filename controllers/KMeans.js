@@ -34,7 +34,7 @@ const clusterUser =  (data,userMatrix) => {
             console.log("before",totalData,options);
             cluster(totalData, options, result => {
                 console.log("after",result)
-                const clusterID = result.finalMatrix.shift()[0];
+                const clusterID = result.finalMatrix?result.finalMatrix.shift()[0]?[];
                 result.finalMatrix.forEach((element,idx) => {
                     if(element[0]===clusterID){
                         finalResult.push(data[idx])
